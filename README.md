@@ -1,12 +1,23 @@
 # Svelte Error Boundary
 
-This package provides a simple error boundary as well as an "higher order
-component" that can be used to create custom error boundaries.
+This package provides a simple error boundary component for Svelte that can be
+can be used with both DOM and SSR targets. The default error boundary component
+provides an optional `onError` callback that can be used to log the error to
+e.g. Sentry.
 
-The default error boundary also provides an `onError` callback that can be used
-to log the error to e.g. Sentry.
+This package also provides a `createBoundary` function that can be used to
+monkey-patch an existing Svelte component in order to create custom error
+state UIs.
 
-**[Demo](https://svelte.dev/repl/9d44bbcf30444cd08cca6b85f07f2e2a?version=3.29.4)**
+Monkey-patching is obviously less than ideal since this might break without
+warning in future versions of Svelte. This library should be considered merely
+as a stop-gap solution for those using Svelte in production today.
+
+Relevant Svelte issues: [svelte#1096](https://github.com/sveltejs/svelte/issues/1096)
+[svelte##3587](https://github.com/sveltejs/svelte/issues/#3587)
+[svelte##3733](https://github.com/sveltejs/svelte/issues/#3733)
+
+**[REPL Demo](https://svelte.dev/repl/9d44bbcf30444cd08cca6b85f07f2e2a?version=3.29.4)**
 
 ## Installation
 
@@ -30,46 +41,19 @@ npm i -D svelte-error-boundary
 
 ## Create custom error boundary
 
-You can use the `createBoundary` "higher order component" to transform any ordinary Svelte component in to an error boundary.
+You can use the `createBoundary` function to monkey-patch any ordinary Svelte
+component in to an error boundary.
 
 The component needs to meet the following criteria:
 
 1. Have one unnamed slot (this is what will be "enhanced" with an error boundary)
-2. Accept an error prop, if an error is caught this will be set
+2. Accept an error prop which will contain a writable store with the last error
 
-See the example below for details.
-
-### CustomBoundaryComponent.svelte
-```svelte
-<script>
-  export let error = null
-  export let onError = null;
-  let DEV = process.env.NODE_ENV !== 'production'
-
-  $: if (error && onError) onError(error)
-</script>
-<style>
-  .error {
-    border: 1px solid red;
-  }
-  .trace {
-    font-family: monospace;
-  }
-</style>
-
-<slot>
-  {#if error}
-    <div class="error">
-      <b>{error.message}</b>
-      <pre class="trace">
-        {DEV ? error.stack : ''}
-      </pre>
-    </div>
-  {/if}
-</slot>
-```
+Feel free to use the [default error boundary component](./src/DefaultBoundary.svelte)
+as inspiration.
 
 ### CustomBoundary.js
+
 ```js
 import { createBoundary } from 'svelte-error-boundary';
 import Component from './CustomBoundaryComponent.svelte';
@@ -77,6 +61,7 @@ export default createBoundary(Component);
 ```
 
 ### Usage
+
 ```svelte
 <script>
    // You might need to add .js extension depending on your bundler config
@@ -92,7 +77,7 @@ export default createBoundary(Component);
 
 ## TODO
 
-- [ ] Catch client side errors after initial mount
+- [x] Catch client side errors after initial mount
 - [ ] Allow client side recovery if error condition goes away
 
 ## Credits
