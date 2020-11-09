@@ -1,33 +1,55 @@
+import { writable } from 'svelte/store';
+const GUARDED_BLOCK_FNS = ['c', 'l', 'h', 'm', 'p', 'a', 'i', 'o'];
+
 export function createBoundary(Component) {
   if (Component.$$render) {
     let render = Component.$$render;
     Component.$$render = (result, props, bindings, slots) => {
+      const error = writable(undefined);
+
       try {
-        return render(result, props, bindings, slots);
+        return render(result, { error, ...props }, bindings, slots);
       } catch (e) {
-        return render(result, { error: e }, bindings, {});
+        error.set(e);
+        return render(result, { error, ...props }, bindings, {});
       }
     };
 
     return Component;
   }
 
-  return class errorBoundary extends Component {
+  function guard(fn, onError) {
+    return function guarded(...args) {
+      try {
+        return fn(...args);
+      } catch (err) {
+        onError(err);
+      }
+    };
+  }
+
+  return class ErrorBoundaryComponent extends Component {
     constructor(config) {
-      var error = null;
+      const error = writable(undefined);
+
       config.props.$$slots.default = config.props.$$slots.default.map(
-        (x) => (...args) => {
-          try {
-            return x(...args);
-          } catch (e) {
-            error = e;
+        (slot) => (...args) => {
+          let guarded = guard(slot, error.set);
+          let block = guarded(...args);
+
+          if (block) {
+            for (let fn of GUARDED_BLOCK_FNS) {
+              if (block[fn]) block[fn] = guard(block[fn], error.set);
+            }
           }
+
+          return block;
         }
       );
+
       super(config);
-      if (error) {
-        this.$set({ error: error });
-      }
+
+      this.$$set({ error });
     }
   };
 }
