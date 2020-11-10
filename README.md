@@ -22,14 +22,14 @@ Relevant Svelte issues: [svelte#1096](https://github.com/sveltejs/svelte/issues/
 ## Installation
 
 ```bash
-npm i -D svelte-error-boundary
+npm i -D @crownframework/svelte-error-boundary
 ```
 
 ## Use default error boundary
 
 ```svelte
 <script>
-  import { Boundary } from 'svelte-error-boundary';
+  import { Boundary } from '@crownframework/svelte-error-boundary';
   let a;
 </script>
 
@@ -55,7 +55,7 @@ as inspiration.
 ### CustomBoundary.js
 
 ```js
-import { createBoundary } from 'svelte-error-boundary';
+import { createBoundary } from '@crownframework/svelte-error-boundary';
 import Component from './CustomBoundaryComponent.svelte';
 export default createBoundary(Component);
 ```

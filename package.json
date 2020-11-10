@@ -1,5 +1,5 @@
 {
-  "name": "svelte-error-boundary",
+  "name": "@crownframework/svelte-error-boundary",
   "svelte": "src/index.js",
   "module": "index/index.js",
   "main": "index/index.js",
@@ -21,11 +21,11 @@
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CrownFramework/svelte-error-boundary.git"
+    "url": "git+https://github.com/crownframework/svelte-error-boundary.git"
   },
   "author": "Jonatan Svennberg",
   "bugs": {
-    "url": "https://github.com/CrownFramework/svelte-error-boundary/issues"
+    "url": "https://github.com/crownframework/svelte-error-boundary/issues"
   },
-  "homepage": "https://github.com/CrownFramework/svelte-error-boundary#readme"
+  "homepage": "https://github.com/crownframework/svelte-error-boundary#readme"
 }
