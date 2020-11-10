@@ -1,8 +1,12 @@
 <script>
-  export let error = null
+  export let error = null;
   export let onError = null;
-  let DEV = process.env.NODE_ENV !== 'production'
-  $: if ($error && onError) onError($error)
+
+  let ENV =
+    typeof process !== 'undefined' && process.env && process.env.NODE_ENV;
+  let DEV = ENV !== 'production';
+
+  $: if ($error && onError) onError($error);
 </script>
 <style>
   .error {

@@ -18,7 +18,7 @@
     "LICENSE"
   ],
   "description": "This package provides a simple error boundary as well as an \"higher order component\" that can be used to create custom error boundaries.",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/crownframework/svelte-error-boundary.git"
