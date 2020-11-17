@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-const GUARDED_BLOCK_FNS = ['c', 'l', 'h', 'm', 'p', 'a', 'i', 'o'];
+const GUARDED_BLOCK_FNS = ['c', 'l', 'h', 'm', 'p', 'a', 'i', 'o', 'd'];
 
 export function createBoundary(Component) {
   if (Component.$$render) {
