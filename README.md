@@ -14,8 +14,8 @@ warning in future versions of Svelte. This library should be considered merely
 as a stop-gap solution for those using Svelte in production today.
 
 Relevant Svelte issues: [svelte#1096](https://github.com/sveltejs/svelte/issues/1096)
-[svelte##3587](https://github.com/sveltejs/svelte/issues/#3587)
-[svelte##3733](https://github.com/sveltejs/svelte/issues/#3733)
+[svelte#3587](https://github.com/sveltejs/svelte/issues/#3587)
+[svelte#3733](https://github.com/sveltejs/svelte/issues/#3733)
 
 **[REPL Demo](https://svelte.dev/repl/9d44bbcf30444cd08cca6b85f07f2e2a?version=3.29.4)**
 
@@ -79,6 +79,7 @@ export default createBoundary(Component);
 
 - [x] Catch client side errors after initial mount
 - [ ] Allow client side recovery if error condition goes away
+- [ ] Find a way to reliablty catch errors originating from local state changes in the subtree (#3)
 
 ## Credits
 
