@@ -1,8 +1,8 @@
 {
   "name": "@crown/error-boundary",
   "svelte": "src/index.js",
-  "module": "index/index.js",
-  "main": "index/index.js",
+  "type": "module",
+  "main": "src/index.js",
   "license": "MIT",
   "scripts": {},
   "devDependencies": {
